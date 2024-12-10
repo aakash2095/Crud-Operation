@@ -11,6 +11,7 @@ def base(request):
             crud.save()
         return redirect('base')
     else:
-        crud=Crudform
-        return render (request,'core/base.html',{'crud':crud})
+        crud=Crudform()
+        cd=Crud.objects.all()
+        return render (request,'core/base.html',{'crud':crud,'cd':cd})
 
