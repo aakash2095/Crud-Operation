@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from . models import Crud
 from . forms import Crudform
+from django.contrib import messages
 
 # Create your views here.
 
@@ -9,6 +10,7 @@ def base(request):
         crud=Crudform(request.POST)
         if crud.is_valid():
             crud.save()
+            messages.success(request, "Record added successfully!")
         return redirect('base')
     else:
         crud=Crudform()
@@ -27,6 +29,7 @@ def update(request,id):
         crud=Crudform(request.POST,instance=cd)
         if crud.is_valid():
             crud.save()
+            messages.success(request, "Record updated successfully!")
     else:
         cd=Crud.objects.get(pk=id)
         crud=Crudform(instance=cd)
