@@ -1,4 +1,4 @@
-{% load static %}
+<!--{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,5 +62,80 @@
 <script src="{% static "core/js/jquery.js" %}"></script>
 <script src="{% static "core/js/popper.js" %}"></script>
 <script src="{% static "core/js/boostrap.min.js" %}"></script>    
+</body>
+</html>
+-->
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Operation</title>
+    <link rel="stylesheet" href="{% static 'core/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/core.css' %}">
+</head>
+<body>
+  
+
+    <h1 class="text-center mt-4" style='font-weight:bolder; color:black;'>CRUD OPERATION</h1>
+    <hr class='ms-4 me-4 p-1 border dashed bg-dark' >
+    <div class="container mt-5">
+            <div class="row">
+            <div class="col-md-6">
+                <h3> <strong>Enter Your Details :</strong></h3>
+                <div class="p-4 border rounded bg-light">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        {{ crud }}
+                        <br>
+                        <button type="submit" id="submit" class="btn btn-outline-primary w-100">Submit</button>
+                    </form>
+                </div>
+            </div>
+            
+            
+            <div class="col-md-6">
+                <h3 id="db"> <strong>Database</strong></h3>
+                <div class="p-4 border rounded bg-white">
+                    <table class="table table-striped">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for c in cd %}
+                            <tr>
+                                <th scope="row">{{ c.id }}</th>
+                                <td>{{ c.name }}</td>
+                                <td>{{ c.Email }}</td>
+                                <td>
+                                    
+                                    <a href="{% url "update" c.id %}" class="btn btn-sm btn-dark">Edit</a>
+                                    <form action="{% url "delete" c.id  %}" method="POST" class='d-inline'>
+                                        {% csrf_token %}
+                                        <input type="submit" value='Delete' class='btn btn-sm btn-danger'>
+                                    </form>
+                                </td>
+                            </tr>
+                            
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+   
+    <script src="{% static 'core/js/jquery.js' %}"></script>
+    <script src="{% static 'core/js/popper.js' %}"></script>
+    <script src="{% static 'core/js/bootstrap.min.js' %}"></script>
 </body>
 </html>
